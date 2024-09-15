@@ -23,7 +23,28 @@ export const setDB = (dataset?: Partial<DBType>) => {
     // db.some = dataset.some || db.some
 }
 
-//
+export const availableResolutionsData = ["P144", "P240", "P360", "P480", "P720", "P1080", "P1440", "P2160"]
+
+// функция сравнения соответствует ли разрешение загруженного видео в допустимым значениям
+export function checkAvailableResolutions(arr: string | any[]){
+    let counter = 0;
+    for (let i=0; i<arr.length; i++ ){
+        if (availableResolutionsData.includes(arr[i])){
+            counter++
+        } else {
+            console.log('break')
+            return false
+            break
+        }
+    }
+    if (counter === arr.length){
+        console.log('yes')
+        return true
+    } else {
+        console.log('No')
+        return false
+    }
+}
 
 
 //функция поиска по БД

@@ -5,7 +5,7 @@ import {SETTINGS} from "./settings";
 import {getVideosController} from "./videos/getVideosController";
 import {createVideoController} from "./videos/createVideoController";
 import {deleteVideosController} from "./videos/deleteVideosController";
-import  {availableResolutionsData} from "./settings";
+import  {checkAvailableResolutions} from "./db/db";
 import bodyParser from "body-parser"
 import {videosRouter} from "./videos";
 import {setDB} from "./db/db";
@@ -42,7 +42,6 @@ app.delete('/videos/:id', (req, res) => {
 })
 app.post('/videos', (req, res) => {
     const newVideo = {
-        id : +(new Date()),
         title : req.body.title,
         author : req.body.title,
         availableResolutions : req.body.title
@@ -57,7 +56,7 @@ app.put('/videos/:id', (req, res) => {
         findVideo.title = req.body.title
         findVideo.author = req.body.author
         findVideo.availableResolutions = req.body.availableResolutions
-        if (availableResolutionsData.includes(req.body.availableResolutions)){
+        if (checkAvailableResolutions(req.body.availableResolutions)){
             res.sendStatus(204)
         } else
             res.sendStatus(404)
