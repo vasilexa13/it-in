@@ -6,8 +6,8 @@ export type DBType = { // типизация базы данных (что мы 
 }
 
 export const db: DBType = { // создаём базу данных (пока это просто переменная)
-    // videos: [{'id':0, 'title':'title0'},{'id':2,'title':'title2'},{'id':3,'title':'title3'}]
-    videos: []
+    videos: [{'id':0, 'title':'title0'},{'id':2,'title':'title2'},{'id':3,'title':'title3'}]
+    // videos: []
     // some: []
 }
 
