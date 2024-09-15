@@ -4,10 +4,11 @@ import {dataset1} from "../../__tests__/datasets";
 import {app} from "../app";
 
 export const deleteVideosController = (req: Request, res: Response<any /*OutputVideoType[]*/>) => {
-    if (db.videos.length ===0){
+    if (db.videos.length === 0){
         res.sendStatus(204)
     } else {
-        res.status(204).json(setDB)
+        setDB();
+        res.sendStatus(204)
     }
 }
 
