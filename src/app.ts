@@ -59,7 +59,7 @@ app.put('/videos/:id', (req, res) => {
         if (checkAvailableResolutions(req.body.availableResolutions)){
             res.sendStatus(204)
         } else
-            res.sendStatus(404)
+            res.sendStatus(400)
     } else {
         res.sendStatus(404)
     }
