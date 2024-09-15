@@ -27,7 +27,7 @@ export const setDB = (dataset?: Partial<DBType>) => {
 
 //функция поиска по БД
 // export const findVideo(idIN) = async (req: Request, res: Response) => {
-//     req.parans.id
+//     const ID = req.params.id
 //     let videoID = db.find(db.id=>(db.id=== idIN ))
 //
 //         return videoID

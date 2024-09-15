@@ -5,7 +5,7 @@ import {app} from "../app";
 
 export const deleteVideosController = (req: Request, res: Response<any /*OutputVideoType[]*/>) => {
     if (db.videos.length ===0){
-        res.status(204).json(db)
+        res.sendStatus(204)
     } else {
         res.status(204).json(setDB)
     }
