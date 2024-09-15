@@ -5,6 +5,7 @@ import {SETTINGS} from "./settings";
 import {getVideosController} from "./videos/getVideosController";
 import {createVideoController} from "./videos/createVideoController";
 import {deleteVideosController} from "./videos/deleteVideosController";
+import  {availableResolutionsData} from "./settings";
 import bodyParser from "body-parser"
 import {videosRouter} from "./videos";
 import {setDB} from "./db/db";
@@ -56,7 +57,10 @@ app.put('/videos/:id', (req, res) => {
         findVideo.title = req.body.title
         findVideo.author = req.body.author
         findVideo.availableResolutions = req.body.availableResolutions
-        res.sendStatus(204)
+        if (availableResolutionsData.includes(req.body.availableResolutions)){
+            res.sendStatus(204)
+        } else
+            res.sendStatus(404)
     } else {
         res.sendStatus(404)
     }

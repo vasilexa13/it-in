@@ -18,11 +18,12 @@ export const setDB = (dataset?: Partial<DBType>) => {
         // db.some = []
         return
     }
-
     // если что-то передано - то заменяем старые значения новыми
     db.videos = dataset.videos || db.videos
     // db.some = dataset.some || db.some
 }
+
+//
 
 
 //функция поиска по БД
