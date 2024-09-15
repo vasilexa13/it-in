@@ -43,8 +43,8 @@ app.delete('/videos/:id', (req, res) => {
 app.post('/videos', (req, res) => {
     const newVideo = {
         title : req.body.title,
-        author : req.body.title,
-        availableResolutions : req.body.title
+        author : req.body.author,
+        availableResolutions : req.body.title.availableResolutions
     }
     db.videos.push(newVideo)
     res.status(201).json(newVideo)
