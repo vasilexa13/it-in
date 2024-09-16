@@ -90,11 +90,3 @@ export function checkAvailableResolutions(arr: string | any[]){
 // }
 
 
-
-//функция поиска по БД
-// export const findVideo(idIN) = async (req: Request, res: Response) => {
-//     const ID = req.params.id
-//     let videoID = db.find(db.id=>(db.id=== idIN ))
-//
-//         return videoID
-//  }

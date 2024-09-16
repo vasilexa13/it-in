@@ -11,6 +11,7 @@ import {videosRouter} from "./videos";
 import {setDB} from "./db/db";
 import {BodyType} from "./videos/some";
 import {query} from "express-validator";
+import {checkMinAgeRestriction, checkTitleAuthor} from "./videos/validatorMiddleware";
 
 export const app = express() // создать приложение
 app.use(express.json()) // создание свойств-объектов body во всех реквестах
@@ -45,7 +46,7 @@ app.delete('/videos/:id', (req, res) => {
        }
    }
 })
-app.post('/videos', (req, res) => {
+app.post('/videos',(req, res) => {
     const newVideo:BodyType = {
         id: req.body.id,
         title : req.body.title,
@@ -56,6 +57,11 @@ app.post('/videos', (req, res) => {
         publicationDate:req.body.publicationDate,
         availableResolutions : req.body.availableResolutions
     }
+    // checkTitleAuthor(req.body.title)
+    // checkTitleAuthor(req.body.author)
+    // checkAvailableResolutions(req.body.availableResolutions)
+    // checkMinAgeRestriction(+req.body.minAgeRestriction)
+
     db.videos.push(newVideo)
     res.status(201).json(newVideo)
     return
@@ -63,6 +69,7 @@ app.post('/videos', (req, res) => {
 app.put('/videos/:id', (req, res) => {
     const ID = +req.params.id;
     let findVideo  = db.videos.find((video) => video.id === ID)
+    console.log(findVideo)
     if (findVideo){
         findVideo.title = req.body.title
         findVideo.author = req.body.author
