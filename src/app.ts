@@ -29,15 +29,17 @@ app.get('/videos/:id', (req, res) => {
     }
 })
 app.delete('/videos/:id', (req, res) => {
-    for (let i = 0; i < db.videos.length; i++) {
-        if (db.videos[i].id === +req.params.id) {
-            db.videos.splice(i, 1);
-            return res.sendStatus(204); // Успешно удалено
-        }
-    }
-    // Если здесь, значит ничего не найдено
-    return res.sendStatus(404); // Не найдено
-});
+   for (let i=0; i<db.videos.length ; i++){
+       if (db.videos[i].id === +req.params.id){
+           db.videos.splice(i,1)
+           console.log(db.videos)
+            res.sendStatus(204)
+           return
+       } else {
+           res.sendStatus(404)
+       }
+   }
+})
 app.post('/videos', (req, res) => {
     const newVideo = {
         title : req.body.title,

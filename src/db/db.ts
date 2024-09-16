@@ -34,7 +34,7 @@ export function checkAvailableResolutions(arr: string | any[]){
         } else {
             console.log('break')
             return false
-            break
+            // break
         }
     }
     if (counter === arr.length){

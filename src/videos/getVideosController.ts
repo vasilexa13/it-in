@@ -5,7 +5,7 @@ export const getVideosController = (req: Request, res: Response<any /*OutputVide
     const videos = db.videos // получаем видео из базы данных
 
     res
-        .status(201)
+        .status(200)
         .json(videos) // отдаём видео в качестве ответа
 }
 
