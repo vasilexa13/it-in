@@ -10,10 +10,13 @@ import bodyParser from "body-parser"
 import {videosRouter} from "./videos";
 import {setDB} from "./db/db";
 import {BodyType} from "./videos/some";
+import {query} from "express-validator";
 
 export const app = express() // создать приложение
 app.use(express.json()) // создание свойств-объектов body во всех реквестах
 app.use(cors()) // разрешить любым фронтам делать запросы на наш бэк
+
+
 
 app.get('/', (req, res) => {
     // эндпоинт, который будет показывать на верселе какая версия бэкэнда сейчас залита
@@ -43,7 +46,7 @@ app.delete('/videos/:id', (req, res) => {
    }
 })
 app.post('/videos', (req, res) => {
-    const newVideo = {
+    const newVideo:BodyType = {
         id: req.body.id,
         title : req.body.title,
         author : req.body.author,
