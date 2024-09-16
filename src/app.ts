@@ -47,8 +47,9 @@ app.delete('/videos/:id', (req, res) => {
    }
 })
 app.post('/videos',(req, res) => {
+    let ID = Number(new Date())
     const newVideo:BodyType = {
-        id: req.body.id,
+        id: ID,
         title : req.body.title,
         author : req.body.author,
         canBeDownloaded:req.body.canBeDownloaded,
@@ -57,10 +58,12 @@ app.post('/videos',(req, res) => {
         publicationDate:req.body.publicationDate,
         availableResolutions : req.body.availableResolutions
     }
+
     // checkTitleAuthor(req.body.title)
     // checkTitleAuthor(req.body.author)
     // checkAvailableResolutions(req.body.availableResolutions)
     // checkMinAgeRestriction(+req.body.minAgeRestriction)
+
 
     db.videos.push(newVideo)
     res.status(201).json(newVideo)
