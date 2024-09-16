@@ -63,11 +63,13 @@ app.post('/videos',(req, res) => {
     // checkTitleAuthor(req.body.author)
     // checkAvailableResolutions(req.body.availableResolutions)
     // checkMinAgeRestriction(+req.body.minAgeRestriction)
-
-
+if (checkTitleAuthor(req.body.title)&&checkTitleAuthor(req.body.author)&&checkAvailableResolutions(req.body.availableResolutions)&&checkMinAgeRestriction(+req.body.minAgeRestriction)){
     db.videos.push(newVideo)
     res.status(201).json(newVideo)
     return
+} else {
+    res.sendStatus(400)
+}
     })
 app.put('/videos/:id', (req, res) => {
     const ID = +req.params.id;
