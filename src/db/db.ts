@@ -46,6 +46,15 @@ export function checkAvailableResolutions(arr: string | any[]){
     }
 }
 
+// export function checkMinAgeRestriction(num){
+//     if(num<18){
+//         return false
+//     } else {
+//         return true
+//     }
+// }
+
+
 
 //функция поиска по БД
 // export const findVideo(idIN) = async (req: Request, res: Response) => {

@@ -9,6 +9,7 @@ import  {checkAvailableResolutions} from "./db/db";
 import bodyParser from "body-parser"
 import {videosRouter} from "./videos";
 import {setDB} from "./db/db";
+import {BodyType} from "./videos/some";
 
 export const app = express() // создать приложение
 app.use(express.json()) // создание свойств-объектов body во всех реквестах
@@ -41,10 +42,15 @@ app.delete('/videos/:id', (req, res) => {
    }
 })
 app.post('/videos', (req, res) => {
-    const newVideo = {
+    const newVideo: BodyType = {
+        id: req.body.id,
         title : req.body.title,
         author : req.body.author,
-        availableResolutions : req.body.title.availableResolutions
+        canBeDownloaded:req.body.canBeDownloaded,
+        minAgeRestriction:req.body.minAgeRestriction,
+        createdAt:req.body.createdAt,
+        publicationDate:req.body.publicationDate,
+        availableResolutions : req.body.availableResolutions
     }
     db.videos.push(newVideo)
     res.status(201).json(newVideo)
