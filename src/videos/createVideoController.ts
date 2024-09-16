@@ -2,6 +2,7 @@ import {Response, Request} from 'express'
 import {OutputErrorsType} from '../input-output-types/output-errors-type'
 import {db} from '../db/db'
 import {InputVideoType, Resolutions} from '../input-output-types/video-types'
+import {BodyType} from "./some";
 
 const inputValidation = (video: InputVideoType) => {
     const errors: OutputErrorsType = { // объект для сбора ошибок
@@ -29,7 +30,7 @@ export const createVideoController = (req: Request<any, any, InputVideoType>, re
     }
 
     // если всё ок - добавляем видео
-    const newVideo: any /*VideoDBType*/ = {
+    const newVideo = {
         ...req.body,
         id: Date.now() + Math.random(),
         // ...

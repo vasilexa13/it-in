@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 })
 app.get('/videos/:id', (req, res) => {
     const ID = +req.params.id;
-    let findVideo  = db.videos.find((video) => video.id === ID)
+    let findVideo:BodyType  = db.videos.find((video) => video.id === ID)
     if (findVideo){
         res.status(200).json(findVideo)
     } else {
@@ -38,11 +38,12 @@ app.delete('/videos/:id', (req, res) => {
            return
        } else {
            res.sendStatus(404)
+
        }
    }
 })
 app.post('/videos', (req, res) => {
-    const newVideo: BodyType = {
+    const newVideo = {
         id: req.body.id,
         title : req.body.title,
         author : req.body.author,
@@ -54,6 +55,7 @@ app.post('/videos', (req, res) => {
     }
     db.videos.push(newVideo)
     res.status(201).json(newVideo)
+    return
     })
 app.put('/videos/:id', (req, res) => {
     const ID = +req.params.id;
@@ -64,10 +66,13 @@ app.put('/videos/:id', (req, res) => {
         findVideo.availableResolutions = req.body.availableResolutions
         if (checkAvailableResolutions(req.body.availableResolutions)){
             res.sendStatus(204)
+            return
         } else
             res.sendStatus(400)
+        return;
     } else {
         res.sendStatus(404)
+        return;
     }
 })
 

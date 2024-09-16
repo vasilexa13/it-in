@@ -14,6 +14,7 @@ export type BodyType = {
     createdAt: string
     publicationDate: string
     availableResolutions: string[]
+    status: any
 }
 
 export type QueryType = {

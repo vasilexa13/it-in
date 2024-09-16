@@ -6,7 +6,42 @@ export type DBType = { // типизация базы данных (что мы 
 }
 
 export const db: DBType = { // создаём базу данных (пока это просто переменная)
-    videos: [{'id':0, 'title':'title0'},{'id':2,'title':'title2'},{'id':3,'title':'title3'}]
+    videos: [{
+        'id':0,
+        'title':'title0',
+        "author": "author0",
+        "canBeDownloaded": true,
+        "minAgeRestriction": null,
+        "createdAt": "2024-09-16T19:12:24.094Z",
+        "publicationDate": "2024-09-16T19:12:24.094Z",
+        "availableResolutions": [
+            "P144"
+        ]
+    },
+        {
+            'id':1,
+            'title':'title1',
+            "author": "author1",
+            "canBeDownloaded": true,
+            "minAgeRestriction": null,
+            "createdAt": "2024-09-16T19:12:24.094Z",
+            "publicationDate": "2024-09-16T19:12:24.094Z",
+            "availableResolutions": [
+                "P144","P240"
+            ]
+        },
+        {
+            'id':3,
+            'title':'title3',
+            "author": "author3",
+            "canBeDownloaded": true,
+            "minAgeRestriction": null,
+            "createdAt": "2024-09-16T19:12:24.094Z",
+            "publicationDate": "2024-09-16T19:12:24.094Z",
+            "availableResolutions": [
+                "P144","P240","P1140"
+            ]
+        }]
     // videos: []
     // some: []
 }
