@@ -18,7 +18,6 @@ app.use(express.json()) // создание свойств-объектов body
 app.use(cors()) // разрешить любым фронтам делать запросы на наш бэк
 
 
-
 app.get('/', (req, res) => {
     // эндпоинт, который будет показывать на верселе какая версия бэкэнда сейчас залита
     res.status(200).json({version: '1.0'})
@@ -42,7 +41,6 @@ app.delete('/videos/:id', (req, res) => {
            return
        } else {
            res.sendStatus(404)
-
        }
    }
 })
@@ -58,18 +56,17 @@ app.post('/videos',(req, res) => {
         publicationDate:req.body.publicationDate,
         availableResolutions : req.body.availableResolutions
     }
-
     // checkTitleAuthor(req.body.title)
     // checkTitleAuthor(req.body.author)
     // checkAvailableResolutions(req.body.availableResolutions)
     // checkMinAgeRestriction(+req.body.minAgeRestriction)
-if (checkTitleAuthor(req.body.title)&&checkTitleAuthor(req.body.author)&&checkAvailableResolutions(req.body.availableResolutions)&&checkMinAgeRestriction(+req.body.minAgeRestriction)){
+    //     if (checkTitleAuthor(req.body.title)&&checkTitleAuthor(req.body.author)&&checkAvailableResolutions(req.body.availableResolutions)&&checkMinAgeRestriction(+req.body.minAgeRestriction)){
     db.videos.push(newVideo)
     res.status(201).json(newVideo)
-    return
-} else {
+    // return
+// } else {
     res.sendStatus(400)
-}
+// }
     })
 app.put('/videos/:id', (req, res) => {
     const ID = +req.params.id;
