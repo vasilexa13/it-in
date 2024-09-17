@@ -48,10 +48,10 @@ app.post('/videos',(req, res) => {
     // console.log(currentDate)
     // console.log(futureDate)
 
-    if (typeof (req.body.title)!='string'|| ((req.body.title.length<1)||(req.body.title.length>40))){
+    if (typeof (req.body.title)!='string'||(req.body.title)!='null'|| ((req.body.title.length<1)||(req.body.title.length>40))){
         res.sendStatus(400)
     }
-    if (typeof (req.body.author)!='string'|| ((req.body.author.length<1)||(req.body.author.length>20))){
+    if (typeof (req.body.author)!='string'||(req.body.title)!='null'|| ((req.body.author.length<1)||(req.body.author.length>20))){
         res.sendStatus(400)
     }
 
