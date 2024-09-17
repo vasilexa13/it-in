@@ -11,7 +11,7 @@ import {videosRouter} from "./videos";
 import {setDB} from "./db/db";
 import {BodyType} from "./videos/some";
 import {query} from "express-validator";
-import {checkMinAgeRestriction, checkTitleAuthor} from "./videos/validatorMiddleware";
+// import {checkMinAgeRestriction, checkTitleAuthor} from "./videos/validatorMiddleware";
 
 export const app = express() // создать приложение
 app.use(express.json()) // создание свойств-объектов body во всех реквестах
@@ -28,21 +28,20 @@ app.get('/videos/:id', (req, res) => {
     if (findVideo){
         res.status(200).json(findVideo)
     } else {
-        res.status(404)
-        res.end()
+        res.sendStatus(404)
     }
 })
 app.delete('/videos/:id', (req, res) => {
-   for (let i=0; i<db.videos.length ; i++){
-       if (db.videos[i].id === +req.params.id){
-           db.videos.splice(i,1)
-           console.log(db.videos)
-            res.sendStatus(204)
-           return
-       } else {
-           res.sendStatus(404)
-       }
-   }
+    // res.json({version: '123'})
+    const index = db.videos.findIndex((el)=>(el.id===+req.params.id))
+    console.log(index);
+
+    if (index===-1){
+        res.sendStatus(404)
+    } else {
+        db.videos.splice(index, 1);
+        res.sendStatus(204)
+    }
 })
 app.post('/videos',(req, res) => {
     let ID = Number(new Date())
@@ -88,9 +87,9 @@ app.put('/videos/:id', (req, res) => {
     }
 })
 
-app.delete(SETTINGS.PATH.TESTING, deleteVideosController)
+// app.delete(SETTINGS.PATH.TESTING, deleteVideosController)
 app.get(SETTINGS.PATH.VIDEOS, getVideosController)
-app.post(SETTINGS.PATH.VIDEOS, createVideoController)
+// app.post(SETTINGS.PATH.VIDEOS, createVideoController)
 
 // app.delete(SETTINGS.PATH.VIDEOS, deleteVideosController)
 // app.use(SETTINGS.PATH.VIDEOS, videosRouter)
