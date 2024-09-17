@@ -1,5 +1,7 @@
 // import {VideoDBType} from './video-db-type'
 
+import {ResolutionsString} from "../input-output-types/video-types";
+
 export type DBType = { // типизация базы данных (что мы будем в ней хранить)
     videos: any[] // VideoDBType[]
     // some: any[]
@@ -60,8 +62,14 @@ export const setDB = (dataset?: Partial<DBType>) => {
 
 export const availableResolutionsData = ["P144", "P240", "P360", "P480", "P720", "P1080", "P1440", "P2160"]
 
+export const checkAvailableResolution = (arr: string[]): boolean => {
+    let count = 0;
+    const arrLength = arr.length;
 
-
-
-
-
+    for (let i = 0; i < arr.length; i++) {
+        if (availableResolutionsData.includes(arr[i])) {
+            count++;
+        }
+    }
+    return count === arrLength; // Возвращаем результат напрямую
+}
