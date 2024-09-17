@@ -11,7 +11,7 @@ import {videosRouter} from "./videos";
 import {setDB} from "./db/db";
 import {BodyType} from "./videos/some";
 import {query} from "express-validator";
-// import {checkMinAgeRestriction, checkTitleAuthor} from "./videos/validatorMiddleware";
+import {checkMinAgeRestriction} from "./videos/validatorMiddleware";
 
 export const app = express() // создать приложение
 app.use(express.json()) // создание свойств-объектов body во всех реквестах
@@ -45,28 +45,29 @@ app.delete('/videos/:id', (req, res) => {
 })
 app.post('/videos',(req, res) => {
     let ID = Number(new Date())
+
+    let createdDate = new Date();
+    createdDate.setDate(createdDate.getDate() + 1); // Добавляем один день
+    let futureDate: string = createdDate.toISOString(); // Получаем строку в формате ISO
+    console.log(createdDate)
+    console.log(futureDate)
+
     const newVideo:BodyType = {
         id: ID,
         title : req.body.title,
         author : req.body.author,
-        canBeDownloaded:req.body.canBeDownloaded,
-        minAgeRestriction:req.body.minAgeRestriction,
-        createdAt:req.body.createdAt,
-        publicationDate:req.body.publicationDate,
+        canBeDownloaded:false,
+        minAgeRestriction:null,
+        createdAt: createdDate.toISOString(),
+        publicationDate: futureDate,
         availableResolutions : req.body.availableResolutions
     }
-    // checkTitleAuthor(req.body.title)
-    // checkTitleAuthor(req.body.author)
-    // checkAvailableResolutions(req.body.availableResolutions)
-    // checkMinAgeRestriction(+req.body.minAgeRestriction)
-    //if (checkTitleAuthor(req.body.title)&&checkTitleAuthor(req.body.author)&&checkAvailableResolutions(req.body.availableResolutions)&&checkMinAgeRestriction(+req.body.minAgeRestriction)){
+
     db.videos.push(newVideo)
     res.status(201).json(newVideo)
-    // return
-// } else {
-    res.sendStatus(400)
-// }
-    })
+
+    // res.sendStatus(400)
+})
 app.put('/videos/:id', (req, res) => {
     const ID = +req.params.id;
     let findVideo  = db.videos.find((video) => video.id === ID)
@@ -89,8 +90,8 @@ app.put('/videos/:id', (req, res) => {
 
 app.delete(SETTINGS.PATH.TESTING, deleteVideosController)
 app.get(SETTINGS.PATH.VIDEOS, getVideosController)
-// app.post(SETTINGS.PATH.VIDEOS, createVideoController)
 
+// app.post(SETTINGS.PATH.VIDEOS, createVideoController)
 // app.delete(SETTINGS.PATH.VIDEOS, deleteVideosController)
 // app.use(SETTINGS.PATH.VIDEOS, videosRouter)
 

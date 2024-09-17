@@ -10,7 +10,7 @@ export type BodyType = {
     title: string
     author: string
     canBeDownloaded: boolean
-    minAgeRestriction: number
+    minAgeRestriction: number|null
     createdAt: string
     publicationDate: string
     availableResolutions: string[]
