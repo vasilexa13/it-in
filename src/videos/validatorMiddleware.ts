@@ -7,9 +7,11 @@ export function checkTitleAuthor(str: string): boolean | null {
         author: 20,
     };
     if (str === 'title') {
-        return !(str.trim().length < 1 || str.trim().length > maxLength.title);
+        !(str.trim().length < 1 || str.trim().length > maxLength.title);
+        return true;
     } else if (str === 'author') {
-        return !(str.trim().length < 1 || str.trim().length > maxLength.author);
+        !(str.trim().length < 1 || str.trim().length > maxLength.author);
+        return true
     } else {
         console.log('Некорректное значение поля');
         return null; // Явное возвращение значения, если field не относится к title/author
@@ -18,5 +20,5 @@ export function checkTitleAuthor(str: string): boolean | null {
 
 // @ts-ignore
 export function checkMinAgeRestriction(num: number): boolean | null {
-    let boolean = (num >= 1 || num <= 18);
+    let boolean = (num >= 1 && num <= 18);
 }
