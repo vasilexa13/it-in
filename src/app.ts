@@ -87,7 +87,7 @@ app.put('/videos/:id', (req, res) => {
     }
 })
 
-// app.delete(SETTINGS.PATH.TESTING, deleteVideosController)
+app.delete(SETTINGS.PATH.TESTING, deleteVideosController)
 app.get(SETTINGS.PATH.VIDEOS, getVideosController)
 // app.post(SETTINGS.PATH.VIDEOS, createVideoController)
 
