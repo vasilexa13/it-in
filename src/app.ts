@@ -74,12 +74,12 @@ app.put('/videos/:id', (req, res) => {
     const ID = +req.params.id;
     let findVideo  = db.videos.find((video) => video.id === ID)
     console.log(findVideo)
-    // if (typeof (req.body.title)!='string'|| ((req.body.title.length<1)||(req.body.title.length>40))){
-    //     res.sendStatus(400)
-    // }
-    // if (typeof (req.body.author)!='string'|| ((req.body.author.length<1)||(req.body.author.length>20))){
-    //     res.sendStatus(400)
-    // }
+    if (typeof (req.body.title)!='string'|| ((req.body.title.length<1)||(req.body.title.length>40))){
+        res.sendStatus(400)
+    }
+    if (typeof (req.body.author)!='string'|| ((req.body.author.length<1)||(req.body.author.length>20))){
+        res.sendStatus(400)
+    }
     // if (!checkAvailableResolution(req.body.availableResolutions)){
     //     res.sendStatus(400)
     // }
