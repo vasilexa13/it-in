@@ -81,7 +81,11 @@ app.put('/videos/:id',
         const ID = +req.params.id;
         let findVideo = db.videos.find((video) => video.id === ID)
 
-        console.log(req.body.title)
+        let arr:Array<number>=[1,2,3,4,5,6,7];
+        let arr2:number[]=[1,2];
+        console.log(arr2)
+        console.log(typeof arr2)
+
 
 
         type ErrorType = { message: string, field: string }

@@ -5,14 +5,16 @@ export type ParamType = {
     id: string
 }
 
-export type BodyType = {
-    id: number
+
+// export type BodyType =  {
+export interface BodyType  {
+    readonly id: number
     title: string
-    author: string
-    canBeDownloaded: boolean
-    minAgeRestriction: number|null
-    createdAt: string
-    publicationDate: string
+    author?: string
+    canBeDownloaded?: boolean
+    minAgeRestriction?: number|null
+    createdAt?: string
+    publicationDate?: string
     availableResolutions: string[]
 }
 
