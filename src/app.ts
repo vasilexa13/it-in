@@ -86,10 +86,10 @@ app.put('/videos/:id', (req, res) => {
         errorsMessages.push({field: "author", message:" some description"})
     }
     if ((req.body.title==null)){
-     errorsMessages.push({field: "author", message:" some description"})
+     errorsMessages.push({field: "title", message:" some description"})
     }
     if (typeof (req.body.title)!='string'|| ((req.body.title.length<1)||(req.body.title.length>40))){
-        errorsMessages.push({field: "author", message:" some description"})
+        errorsMessages.push({field: "title", message:" some description"})
     }
     if (typeof (req.body.author)!='string'|| ((req.body.author.length<1)||(req.body.author.length>20))){
         errorsMessages.push({field: "author", message:" some description"})
@@ -98,10 +98,13 @@ app.put('/videos/:id', (req, res) => {
     //     res.sendStatus(400)
     // }
     if ((req.body.minAgeRestruction)<1||(req.body.minAgeRestruction)>18){
+        errorsMessages.push({field: "minAgeRestruction", message:" some description"})
     }
     if(errorsMessages.length) {
         res.status(400).send({errorsMessages})
     }
+
+
     if (findVideo){
         findVideo.title = req.body.title
         findVideo.author = req.body.author
