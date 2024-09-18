@@ -69,6 +69,8 @@ export const checkAvailableResolution = (arr: string[]): boolean => {
     for (let i = 0; i < arr.length; i++) {
         if (availableResolutionsData.includes(arr[i])) {
             count++;
+        }else {
+            break
         }
     }
     return count === arrLength; // Возвращаем результат напрямую

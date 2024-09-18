@@ -41,10 +41,11 @@ app.delete('/videos/:id', (req, res) => {
 })
 app.post('/videos',(req, res) => {
     let ID = Number(new Date())
-    let currentDate = new Date();
+    const createdAt = new Date()
+    const publicationDate = new Date();
+    publicationDate.setDate(createdAt.getDate() + 1);
 
     //ругается на тип при вызове toISOString
-    let futureDate = currentDate.setDate(currentDate.getDate()+1).toString();
     // console.log(currentDate)
     // console.log(futureDate)
 
@@ -63,8 +64,8 @@ app.post('/videos',(req, res) => {
         author : req.body.author,
         canBeDownloaded:false,
         minAgeRestriction:null,
-        createdAt: currentDate.toISOString(),
-        publicationDate: futureDate,
+        createdAt:createdAt.toISOString(),
+        publicationDate: publicationDate.toISOString(),
         availableResolutions : req.body.availableResolutions
     }
     db.videos.push(newVideo)
