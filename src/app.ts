@@ -58,6 +58,10 @@ app.post('/videos',(req, res) => {
     if (!checkAvailableResolution(req.body.availableResolutions)){
         res.sendStatus(400)
     }
+    if ((req.body.title==null)||(req.body.author==null)){
+        res.sendStatus(400)
+        return;
+    }
     const newVideo:BodyType = {
         id: ID,
         title : req.body.title,
@@ -79,6 +83,7 @@ app.put('/videos/:id', (req, res) => {
 
  if ((req.body.title==null)||(req.body.author==null)){
      res.sendStatus(400)
+     return;
  }
     // if ((!req.body.title)||(!req.body.author)){
     //     res.sendStatus(400)
