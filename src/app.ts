@@ -75,6 +75,9 @@ app.put('/videos/:id', (req, res) => {
     const ID = +req.params.id;
     let findVideo  = db.videos.find((video) => video.id === ID)
     console.log(findVideo)
+    if ((req.body.title===null)||(!req.body.author===null)||(req.body.title===undefined)||(!req.body.author===undefined)){
+        res.sendStatus(400)
+    }
     if (typeof (req.body.title)!='string'|| ((req.body.title.length<1)||(req.body.title.length>40))){
         res.sendStatus(400)
     }
@@ -84,11 +87,15 @@ app.put('/videos/:id', (req, res) => {
     // if (!checkAvailableResolution(req.body.availableResolutions)){
     //     res.sendStatus(400)
     // }
+    if ((req.body.minAgeRestruction)<1||(req.body.minAgeRestruction)>18){
+        res.sendStatus(400)
+    }
     if (findVideo){
         findVideo.title = req.body.title
         findVideo.author = req.body.author
+        findVideo.canBeDownloaded = false
+        findVideo.publicationDate =new Date()
         findVideo.availableResolutions = req.body.availableResolutions
-
             res.sendStatus(204)
 
     } else {
