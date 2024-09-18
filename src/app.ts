@@ -15,7 +15,6 @@ export const app = express() // создать приложение
 app.use(express.json()) // создание свойств-объектов body во всех реквестах
 app.use(cors()) // разрешить любым фронтам делать запросы на наш бэк
 
-
 app.get('/', (req, res) => {
     // эндпоинт, который будет показывать на верселе какая версия бэкэнда сейчас залита
     res.status(200).json({version: '1.0'})
@@ -80,13 +79,6 @@ app.post('/videos',(req, res) => {
 app.put('/videos/:id',    (req, res) => {
         const ID = +req.params.id;
         let findVideo = db.videos.find((video) => video.id === ID)
-
-    console.log(typeof findVideo.id)
-        // let arr:Array<number>=[1,2,3,4,5,6,7];
-        // let arr2:number[]=[1,2];
-        // console.log(arr2)
-        // console.log(typeof arr2)
-
 
         type ErrorType = { message: string, field: string }
         const errorsMessages: ErrorType[] = []
