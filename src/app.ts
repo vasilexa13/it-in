@@ -75,7 +75,7 @@ app.put('/videos/:id', (req, res) => {
     const ID = +req.params.id;
     let findVideo  = db.videos.find((video) => video.id === ID)
     console.log(findVideo)
-    if ((req.body.title!=null)||(req.body.author!=null)){
+    if ((!req.body.title)||(!req.body.author)){
         res.sendStatus(400)
     }
     if (typeof (req.body.title)!='string'|| ((req.body.title.length<1)||(req.body.title.length>40))){
