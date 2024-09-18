@@ -60,7 +60,7 @@ app.post('/videos',(req, res) => {
     }
     if ((req.body.title==null)||(req.body.author==null)){
         res.sendStatus(400)
-        return;
+        return
     }
     const newVideo:BodyType = {
         id: ID,
@@ -80,27 +80,27 @@ app.put('/videos/:id', (req, res) => {
     let findVideo  = db.videos.find((video) => video.id === ID)
     console.log(req.body.title)
 
-
- if ((req.body.title==null)||(req.body.author==null)){
-     res.sendStatus(400)
-     return;
- }
-    // if ((!req.body.title)||(!req.body.author)){
-    //     res.sendStatus(400)
-    // }
-
-
+    type ErrorType = { message: string, field: string }
+    const errorsMessages: ErrorType[] = []
+    if(req.body.author==null){
+        errorsMessages.push({field: "author", message:" some description"})
+    }
+    if ((req.body.title==null)){
+     errorsMessages.push({field: "author", message:" some description"})
+    }
     if (typeof (req.body.title)!='string'|| ((req.body.title.length<1)||(req.body.title.length>40))){
-        res.sendStatus(400)
+        errorsMessages.push({field: "author", message:" some description"})
     }
     if (typeof (req.body.author)!='string'|| ((req.body.author.length<1)||(req.body.author.length>20))){
-        res.sendStatus(400)
+        errorsMessages.push({field: "author", message:" some description"})
     }
     // if (!checkAvailableResolution(req.body.availableResolutions)){
     //     res.sendStatus(400)
     // }
     if ((req.body.minAgeRestruction)<1||(req.body.minAgeRestruction)>18){
-        res.sendStatus(400)
+    }
+    if(errorsMessages.length) {
+        res.status(400).send({errorsMessages})
     }
     if (findVideo){
         findVideo.title = req.body.title
