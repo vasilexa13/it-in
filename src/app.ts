@@ -8,6 +8,7 @@ import {deleteVideosController} from "./videos/deleteVideosController";
 import  {availableResolutionsData} from "./db/db";
 import {BodyType} from "./videos/some";
 import {query} from "express-validator";
+import {type} from "node:os";
 
 export const app = express() // создать приложение
 app.use(express.json()) // создание свойств-объектов body во всех реквестах
@@ -75,49 +76,52 @@ app.post('/videos',(req, res) => {
     db.videos.push(newVideo)
     res.status(201).json(newVideo)
 })
-app.put('/videos/:id', (req, res) => {
-    const ID = +req.params.id;
-    let findVideo  = db.videos.find((video) => video.id === ID)
-    console.log(req.body.title)
+app.put('/videos/:id',
+    (req, res) => {
+        const ID = +req.params.id;
+        let findVideo = db.videos.find((video) => video.id === ID)
 
-    type ErrorType = { message: string, field: string }
-    const errorsMessages: ErrorType[] = []
-    if(req.body.author==null){
-        errorsMessages.push({message:"Any<String>",field: "author"})
-    }
-    if ((req.body.title==null)){
-     errorsMessages.push({message:"Any<String>",field: "title"})
-    }
-    if (typeof (req.body.title)!='string'|| ((req.body.title.length<1)||(req.body.title.length>40))){
-        errorsMessages.push({message:"Any<String>",field: "title"})
-    }
-    if (typeof (req.body.author)!='string'|| ((req.body.author.length<1)||(req.body.author.length>20))){
-        errorsMessages.push({message:"Any<String>",field: "author"})
-    }
-    // if (!checkAvailableResolution(req.body.availableResolutions)){
-    //     res.sendStatus(400)
-    // }
-    if ((req.body.minAgeRestruction)<1||(req.body.minAgeRestruction)>18){
-        errorsMessages.push({message:"Any<String>",field: "minAgeRestruction"})
-    }
-    if(errorsMessages.length) {
-        res.status(400).send({errorsMessages})
-    }
+        console.log(req.body.title)
 
 
-    if (findVideo){
-        findVideo.title = req.body.title
-        findVideo.author = req.body.author
-        findVideo.canBeDownloaded = false
-        findVideo.publicationDate =new Date()
-        findVideo.availableResolutions = req.body.availableResolutions
+        type ErrorType = { message: string, field: string }
+        const errorsMessages: ErrorType[] = []
+        if (req.body.author == null) {
+            errorsMessages.push({message: typeof (req.body.author), field: "author"})
+        }
+        if ((req.body.title == null)) {
+            errorsMessages.push({message: typeof (req.body.title), field: "title"})
+        }
+        if (typeof (req.body.title) != 'string' || ((req.body.title.length < 1) || (req.body.title.length > 40))) {
+            errorsMessages.push({message: "Any<String>", field: "title"})
+        }
+        if (typeof (req.body.author) != 'string' || ((req.body.author.length < 1) || (req.body.author.length > 20))) {
+            errorsMessages.push({message: "Any<String>", field: "author"})
+        }
+        // if (!checkAvailableResolution(req.body.availableResolutions)){
+        //     res.sendStatus(400)
+        // }
+        if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18) {
+            errorsMessages.push({message: "Any<String>", field: "minAgeRestruction"})
+        }
+        if (errorsMessages.length) {
+            res.status(400).json({errorsMessages})
+        }
+
+
+        if (findVideo) {
+            findVideo.title = req.body.title
+            findVideo.author = req.body.author
+            findVideo.canBeDownloaded = false
+            findVideo.publicationDate = new Date()
+            findVideo.availableResolutions = req.body.availableResolutions
             res.sendStatus(204)
 
-    } else {
-        res.sendStatus(404)
-        return;
-    }
-})
+        } else {
+            res.sendStatus(404)
+            return;
+        }
+    })
 
 
 app.delete(SETTINGS.PATH.TESTING, deleteVideosController)
