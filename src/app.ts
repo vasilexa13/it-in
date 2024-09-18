@@ -93,16 +93,16 @@ app.put('/videos/:id',
             errorsMessages.push({message: typeof (req.body.title), field: "title"})
         }
         if (typeof (req.body.title) != 'string' || ((req.body.title.length < 1) || (req.body.title.length > 40))) {
-            errorsMessages.push({message: "Any<String>", field: "title"})
+            errorsMessages.push({message: typeof (req.body.title), field: "title"})
         }
         if (typeof (req.body.author) != 'string' || ((req.body.author.length < 1) || (req.body.author.length > 20))) {
-            errorsMessages.push({message: "Any<String>", field: "author"})
+            errorsMessages.push({message: typeof (req.body.author), field: "author"})
         }
         // if (!checkAvailableResolution(req.body.availableResolutions)){
         //     res.sendStatus(400)
         // }
         if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18) {
-            errorsMessages.push({message: "Any<String>", field: "minAgeRestruction"})
+            errorsMessages.push({message: typeof (req.body.author), field: "minAgeRestruction"})
         }
         if (errorsMessages.length) {
             res.status(400).json({errorsMessages})
