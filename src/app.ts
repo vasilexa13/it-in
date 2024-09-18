@@ -7,8 +7,9 @@ import {createVideoController} from "./videos/createVideoController";
 import {deleteVideosController} from "./videos/deleteVideosController";
 import  {availableResolutionsData} from "./db/db";
 import {BodyType} from "./videos/some";
-import {query} from "express-validator";
+import {body, query} from "express-validator";
 import {type} from "node:os";
+import {types} from "node:util";
 
 export const app = express() // создать приложение
 app.use(express.json()) // создание свойств-объектов body во всех реквестах
@@ -76,37 +77,36 @@ app.post('/videos',(req, res) => {
     db.videos.push(newVideo)
     res.status(201).json(newVideo)
 })
-app.put('/videos/:id',
-    (req, res) => {
+app.put('/videos/:id',    (req, res) => {
         const ID = +req.params.id;
         let findVideo = db.videos.find((video) => video.id === ID)
 
-        let arr:Array<number>=[1,2,3,4,5,6,7];
-        let arr2:number[]=[1,2];
-        console.log(arr2)
-        console.log(typeof arr2)
-
+    console.log(typeof findVideo.id)
+        // let arr:Array<number>=[1,2,3,4,5,6,7];
+        // let arr2:number[]=[1,2];
+        // console.log(arr2)
+        // console.log(typeof arr2)
 
 
         type ErrorType = { message: string, field: string }
         const errorsMessages: ErrorType[] = []
         if (req.body.author == null) {
-            errorsMessages.push({message: typeof (req.body.author), field: "author"})
+            errorsMessages.push({message: typeof findVideo.author, field: "author"})
         }
         if ((req.body.title == null)) {
-            errorsMessages.push({message: typeof (req.body.title), field: "title"})
+            errorsMessages.push({message: typeof findVideo.title, field: "title"})
         }
         if (typeof (req.body.title) != 'string' || ((req.body.title.length < 1) || (req.body.title.length > 40))) {
-            errorsMessages.push({message: typeof (req.body.title), field: "title"})
+            errorsMessages.push({message: '', field: "title"})
         }
         if (typeof (req.body.author) != 'string' || ((req.body.author.length < 1) || (req.body.author.length > 20))) {
-            errorsMessages.push({message: typeof (req.body.author), field: "author"})
+            errorsMessages.push({message: typeof findVideo.author, field: "author"})
         }
         // if (!checkAvailableResolution(req.body.availableResolutions)){
         //     res.sendStatus(400)
         // }
         if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18) {
-            errorsMessages.push({message: typeof (req.body.author), field: "minAgeRestruction"})
+            errorsMessages.push({message: typeof findVideo.minAgeRestruction, field: "minAgeRestruction"})
         }
         if (errorsMessages.length) {
             res.status(400).json({errorsMessages})
