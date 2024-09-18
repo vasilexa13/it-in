@@ -83,22 +83,22 @@ app.put('/videos/:id', (req, res) => {
     type ErrorType = { message: string, field: string }
     const errorsMessages: ErrorType[] = []
     if(req.body.author==null){
-        errorsMessages.push({field: "author", message:" some description"})
+        errorsMessages.push({message:"Any<String>",field: "author"})
     }
     if ((req.body.title==null)){
-     errorsMessages.push({field: "title", message:" some description"})
+     errorsMessages.push({message:"Any<String>",field: "title"})
     }
     if (typeof (req.body.title)!='string'|| ((req.body.title.length<1)||(req.body.title.length>40))){
-        errorsMessages.push({field: "title", message:" some description"})
+        errorsMessages.push({message:"Any<String>",field: "title"})
     }
     if (typeof (req.body.author)!='string'|| ((req.body.author.length<1)||(req.body.author.length>20))){
-        errorsMessages.push({field: "author", message:" some description"})
+        errorsMessages.push({message:"Any<String>",field: "author"})
     }
     // if (!checkAvailableResolution(req.body.availableResolutions)){
     //     res.sendStatus(400)
     // }
     if ((req.body.minAgeRestruction)<1||(req.body.minAgeRestruction)>18){
-        errorsMessages.push({field: "minAgeRestruction", message:" some description"})
+        errorsMessages.push({message:"Any<String>",field: "minAgeRestruction"})
     }
     if(errorsMessages.length) {
         res.status(400).send({errorsMessages})
