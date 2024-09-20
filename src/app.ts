@@ -39,21 +39,21 @@ app.get('/videos/:id', (req, res) => {
 //         "title": "some title updated",
 // }
 
-    let responceData = {
-        id:ID,//
-        author:findVideo.author,
-        title:findVideo.title,//
-        canBeDownloaded:findVideo.canBeDownloaded,
-        minAgeRestriction:findVideo.minAgeRestriction,
-        createdAt:findVideo.createdAt,//
-        publicationDate:findVideo.publicationDate,
-        availableResolutions: findVideo.availableResolutions,//
-    }
+    // let responceData = {
+    //     id:ID,//
+    //     author:findVideo.author,
+    //     title:findVideo.title,//
+    //     canBeDownloaded:findVideo.canBeDownloaded,
+    //     minAgeRestriction:findVideo.minAgeRestriction,
+    //     createdAt:findVideo.createdAt,//
+    //     publicationDate:findVideo.publicationDate,
+    //     availableResolutions: findVideo.availableResolutions,//
+    // }
 
-    console.log(responceData);
+    // console.log(responceData);
 
     if (findVideo){
-        res.status(200).json(responceData)
+        res.status(200).json(findVideo)
     } else {
         res.sendStatus(404)
     }
