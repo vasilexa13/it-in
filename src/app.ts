@@ -41,6 +41,7 @@ app.get('/videos/:id', (req, res) => {
 
     let responceData = {
         id:ID,//
+        author:findVideo.author,
         title:findVideo.title,//
         canBeDownloaded:findVideo.canBeDownloaded,
         minAgeRestriction:findVideo.minAgeRestriction,
