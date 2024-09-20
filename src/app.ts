@@ -23,7 +23,6 @@ app.get('/videos/:id', (req, res) => {
     const ID = +req.params.id;
     let findVideo:BodyType  = db.videos.find((video) => video.id === ID)
 
-
     // let responceData = {
     //     id:ID,//
     //     author:findVideo.author,
@@ -134,7 +133,7 @@ app.put('/videos/:id',    (req, res) => {
         // if (!checkAvailableResolution(req.body.availableResolutions)){
         //     res.sendStatus(400)
         // }
-        if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18) {
+        if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18 || req.body.req.body.minAgeRestruction==null) {
             errorsMessages.push({message: typeof findVideo.minAgeRestruction, field: "minAgeRestruction"})
         }
         if (errorsMessages.length) {
