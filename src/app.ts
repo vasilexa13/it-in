@@ -40,7 +40,6 @@ app.get('/videos/:id', (req, res) => {
         res.sendStatus(404)
     }
 })
-
 app.delete('/videos/:id', (req, res) => {
     // res.json({version: '123'})
     const index = db.videos.findIndex((el)=>(el.id===+req.params.id))
@@ -73,7 +72,6 @@ app.post('/videos',(req, res) => {
     if (!checkAvailableResolution(req.body.availableResolutions)){
         errorsMessages.push({message: typeof req.body.availableResolutions, field: "availableResolutions"})
     }
-
     if (req.body.author == null) {
         errorsMessages.push({message: typeof req.body.author, field: "author"})
     }
@@ -93,46 +91,14 @@ app.post('/videos',(req, res) => {
         res.status(400).json({errorsMessages})
     }
 
-
-
-//     if (typeof (req.body.title)!='string'|| ((req.body.title.length<1)||(req.body.title.length>40))){
-//         res.sendStatus(400)
-//     }
-//     if (typeof (req.body.author)!='string'|| ((req.body.author.length<1)||(req.body.author.length>20))){
-//         res.sendStatus(400)
-//     }
-//     if (!checkAvailableResolution(req.body.availableResolutions)){
-//         res.sendStatus(400)
-//     }
-//     if ((req.body.title==null)||(req.body.author==null)){
-//         res.sendStatus(400)
-//         return
-//     }
-//     //     "availableResolutions": Array [
-// //         "P144",
-// //             "P2160",
-// //             "P720",
-// //         ],
-// //         -   "canBeDownloaded": true,
-// //         +   "canBeDownloaded": false,
-// //         "createdAt": "2024-09-18T21:06:11.971Z",
-// //         "id": 1726693571971,
-// //         -   "minAgeRestriction": 16,
-// //         -   "publicationDate": "2024-09-24T21:06:12.024Z",
-// //         +   "minAgeRestriction": null,
-// //         +   "publicationDate": "2024-09-18T21:06:12.102Z",
-// //         "title": "some title updated",
-// // }
-
-
-
-
-
     const newVideo:BodyType = {
         id: ID,
         title : req.body.title,
         author : req.body.author,
-        canBeDownloaded:false,
+        canBeDownloaded:true,
+
+        // canBeDownloaded:false, //меняю на true падает больше тестов
+
         minAgeRestriction:null,
         createdAt:createdAt.toISOString(),
         publicationDate: publicationDate.toISOString(),
