@@ -133,7 +133,7 @@ app.put('/videos/:id',    (req, res) => {
         // if (!checkAvailableResolution(req.body.availableResolutions)){
         //     res.sendStatus(400)
         // }
-        if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18 || req.body.req.body.minAgeRestruction==null) {
+        if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18 ) {
             errorsMessages.push({message: typeof findVideo.minAgeRestruction, field: "minAgeRestruction"})
         }
         if (errorsMessages.length) {
