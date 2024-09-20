@@ -59,10 +59,6 @@ app.post('/videos',(req, res) => {
     const publicationDate = new Date();
     publicationDate.setDate(createdAt.getDate() + 1);
 
-    //ругается на тип при вызове toISOString
-    // console.log(currentDate)
-    // console.log(futureDate)
-
     if (typeof (req.body.title)!='string'|| ((req.body.title.length<1)||(req.body.title.length>40))){
         res.sendStatus(400)
     }
@@ -96,7 +92,7 @@ app.post('/videos',(req, res) => {
         id: ID,
         title : req.body.title,
         author : req.body.author,
-        canBeDownloaded:true,
+        canBeDownloaded:false,
         minAgeRestriction:null,
         createdAt:createdAt.toISOString(),
         publicationDate: publicationDate.toISOString(),
