@@ -95,7 +95,7 @@ app.post('/videos',(req, res) => {
         id: ID,
         title : req.body.title,
         author : req.body.author,
-        canBeDownloaded:true,
+        canBeDownloaded:false,
 
         // canBeDownloaded:false, //меняю на true падает больше тестов
 
@@ -114,8 +114,22 @@ app.put('/videos/:id',    (req, res) => {
         type ErrorType = { message: string, field: string }
         const errorsMessages: ErrorType[] = []
 
-    console.log(req.body)
-    console.log(typeof req.body.title=='string'|| req.body.title.length<1);
+
+    let avaliableData = {
+        canBeDownloaded:undefined,
+        publicationDate:undefined,
+        availableResolutions:undefined
+    }
+
+    if (req.body.canBeDownloaded) {
+        avaliableData.canBeDownloaded =   req.body.canBeDownloaded
+    }
+    if (req.body.publicationDate) {
+        avaliableData.publicationDate =   req.body.publicationDate
+    }
+    if (req.body.availableResolutions) {
+        avaliableData.availableResolutions =   req.body.availableResolutions
+    }
 
 
 
@@ -135,6 +149,7 @@ app.put('/videos/:id',    (req, res) => {
         // if (!checkAvailableResolution(req.body.availableResolutions)){
         //     res.sendStatus(400)
         // }
+
         if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18 ) {
             errorsMessages.push({message: typeof findVideo.minAgeRestruction, field: "minAgeRestruction"})
         }
@@ -143,12 +158,20 @@ app.put('/videos/:id',    (req, res) => {
         }
 
 
+
+
         if (findVideo) {
             findVideo.title = req.body.title
             findVideo.author = req.body.author
-            findVideo.canBeDownloaded = false
-            findVideo.publicationDate = new Date()
-            findVideo.availableResolutions = req.body.availableResolutions
+            if (avaliableData.canBeDownloaded!=null){
+                findVideo.canBeDownloaded = req.body.canBeDownloaded
+            }
+            if (avaliableData.publicationDate!=null){
+                findVideo.publicationDate = req.body.publicationDate
+            }
+            if (avaliableData.availableResolutions!=null){
+                findVideo.availableResolutions = req.body.availableResolutions
+            }
             res.sendStatus(204)
 
         } else {
