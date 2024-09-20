@@ -22,12 +22,41 @@ app.get('/', (req, res) => {
 app.get('/videos/:id', (req, res) => {
     const ID = +req.params.id;
     let findVideo:BodyType  = db.videos.find((video) => video.id === ID)
+
+//     "availableResolutions": Array [
+//         "P144",
+//             "P2160",
+//             "P720",
+//         ],
+//         -   "canBeDownloaded": true,
+//         +   "canBeDownloaded": false,
+//         "createdAt": "2024-09-18T21:06:11.971Z",
+//         "id": 1726693571971,
+//         -   "minAgeRestriction": 16,
+//         -   "publicationDate": "2024-09-24T21:06:12.024Z",
+//         +   "minAgeRestriction": null,
+//         +   "publicationDate": "2024-09-18T21:06:12.102Z",
+//         "title": "some title updated",
+// }
+
+    let responceData = {
+        id:ID,
+        title:findVideo.title,
+        minAgeRestriction:findVideo.minAgeRestriction,
+        createdAt:findVideo.createdAt,
+        publicationDate:findVideo.publicationDate,
+        availableResolutions: findVideo.availableResolutions,
+    }
+
+    console.log(responceData);
+
     if (findVideo){
-        res.status(200).json(findVideo)
+        res.status(200).json(responceData)
     } else {
         res.sendStatus(404)
     }
 })
+
 app.delete('/videos/:id', (req, res) => {
     // res.json({version: '123'})
     const index = db.videos.findIndex((el)=>(el.id===+req.params.id))
@@ -82,6 +111,13 @@ app.put('/videos/:id',    (req, res) => {
 
         type ErrorType = { message: string, field: string }
         const errorsMessages: ErrorType[] = []
+
+    console.log(req.body)
+    console.log(typeof req.body.title=='string'|| req.body.title.length<1);
+
+
+
+
         if (req.body.author == null) {
             errorsMessages.push({message: typeof findVideo.author, field: "author"})
         }
