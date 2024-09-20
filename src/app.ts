@@ -118,7 +118,8 @@ app.put('/videos/:id',    (req, res) => {
     let avaliableData = {
         canBeDownloaded:undefined,
         publicationDate:undefined,
-        availableResolutions:undefined
+        availableResolutions:undefined,
+        minAgeRestriction:undefined
     }
 
     if (req.body.canBeDownloaded) {
@@ -129,6 +130,9 @@ app.put('/videos/:id',    (req, res) => {
     }
     if (req.body.availableResolutions) {
         avaliableData.availableResolutions =   req.body.availableResolutions
+    }
+    if (req.body.minAgeRestriction){
+        avaliableData.minAgeRestriction=   req.body.minAgeRestriction
     }
 
 
@@ -150,9 +154,12 @@ app.put('/videos/:id',    (req, res) => {
         //     res.sendStatus(400)
         // }
 
-        if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18 ) {
-            errorsMessages.push({message: typeof findVideo.minAgeRestruction, field: "minAgeRestruction"})
+        if (req.body.minAgeRestriction){
+            if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18 ) {
+                errorsMessages.push({message: typeof findVideo.minAgeRestruction, field: "minAgeRestruction"})
+            }
         }
+
         if (errorsMessages.length) {
             res.status(400).json({errorsMessages})
         }
@@ -171,6 +178,9 @@ app.put('/videos/:id',    (req, res) => {
             }
             if (avaliableData.availableResolutions!=null){
                 findVideo.availableResolutions = req.body.availableResolutions
+            }
+            if (avaliableData.minAgeRestriction!=null){
+                findVideo.minAgeRestriction = req.body.minAgeRestriction
             }
             res.sendStatus(204)
 
