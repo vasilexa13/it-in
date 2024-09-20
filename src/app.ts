@@ -40,12 +40,13 @@ app.get('/videos/:id', (req, res) => {
 // }
 
     let responceData = {
-        id:ID,
-        title:findVideo.title,
+        id:ID,//
+        title:findVideo.title,//
+        canBeDownloaded:findVideo.canBeDownloaded,
         minAgeRestriction:findVideo.minAgeRestriction,
-        createdAt:findVideo.createdAt,
+        createdAt:findVideo.createdAt,//
         publicationDate:findVideo.publicationDate,
-        availableResolutions: findVideo.availableResolutions,
+        availableResolutions: findVideo.availableResolutions,//
     }
 
     console.log(responceData);
@@ -92,6 +93,22 @@ app.post('/videos',(req, res) => {
         res.sendStatus(400)
         return
     }
+    //     "availableResolutions": Array [
+//         "P144",
+//             "P2160",
+//             "P720",
+//         ],
+//         -   "canBeDownloaded": true,
+//         +   "canBeDownloaded": false,
+//         "createdAt": "2024-09-18T21:06:11.971Z",
+//         "id": 1726693571971,
+//         -   "minAgeRestriction": 16,
+//         -   "publicationDate": "2024-09-24T21:06:12.024Z",
+//         +   "minAgeRestriction": null,
+//         +   "publicationDate": "2024-09-18T21:06:12.102Z",
+//         "title": "some title updated",
+// }
+
     const newVideo:BodyType = {
         id: ID,
         title : req.body.title,
