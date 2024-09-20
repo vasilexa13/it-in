@@ -23,21 +23,6 @@ app.get('/videos/:id', (req, res) => {
     const ID = +req.params.id;
     let findVideo:BodyType  = db.videos.find((video) => video.id === ID)
 
-//     "availableResolutions": Array [
-//         "P144",
-//             "P2160",
-//             "P720",
-//         ],
-//         -   "canBeDownloaded": true,
-//         +   "canBeDownloaded": false,
-//         "createdAt": "2024-09-18T21:06:11.971Z",
-//         "id": 1726693571971,
-//         -   "minAgeRestriction": 16,
-//         -   "publicationDate": "2024-09-24T21:06:12.024Z",
-//         +   "minAgeRestriction": null,
-//         +   "publicationDate": "2024-09-18T21:06:12.102Z",
-//         "title": "some title updated",
-// }
 
     // let responceData = {
     //     id:ID,//
@@ -49,8 +34,6 @@ app.get('/videos/:id', (req, res) => {
     //     publicationDate:findVideo.publicationDate,
     //     availableResolutions: findVideo.availableResolutions,//
     // }
-
-    // console.log(responceData);
 
     if (findVideo){
         res.status(200).json(findVideo)
