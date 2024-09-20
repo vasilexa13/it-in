@@ -59,34 +59,74 @@ app.post('/videos',(req, res) => {
     const publicationDate = new Date();
     publicationDate.setDate(createdAt.getDate() + 1);
 
-    if (typeof (req.body.title)!='string'|| ((req.body.title.length<1)||(req.body.title.length>40))){
-        res.sendStatus(400)
-    }
-    if (typeof (req.body.author)!='string'|| ((req.body.author.length<1)||(req.body.author.length>20))){
-        res.sendStatus(400)
-    }
+
+
+    type ErrorType = { message: string, field: string }
+    const errorsMessages: ErrorType[] = []
+
+    console.log(req.body)
+    console.log(typeof req.body.title=='string'|| req.body.title.length<1);
+
+
+
+
     if (!checkAvailableResolution(req.body.availableResolutions)){
-        res.sendStatus(400)
+        errorsMessages.push({message: typeof req.body.availableResolutions, field: "availableResolutions"})
     }
-    if ((req.body.title==null)||(req.body.author==null)){
-        res.sendStatus(400)
-        return
+
+    if (req.body.author == null) {
+        errorsMessages.push({message: typeof req.body.author, field: "author"})
     }
-    //     "availableResolutions": Array [
-//         "P144",
-//             "P2160",
-//             "P720",
-//         ],
-//         -   "canBeDownloaded": true,
-//         +   "canBeDownloaded": false,
-//         "createdAt": "2024-09-18T21:06:11.971Z",
-//         "id": 1726693571971,
-//         -   "minAgeRestriction": 16,
-//         -   "publicationDate": "2024-09-24T21:06:12.024Z",
-//         +   "minAgeRestriction": null,
-//         +   "publicationDate": "2024-09-18T21:06:12.102Z",
-//         "title": "some title updated",
-// }
+    if ((req.body.title == null)) {
+        errorsMessages.push({message: typeof req.body.title, field: "title"})
+    }
+    if (typeof (req.body.title) != 'string' || ((req.body.title.length < 1) || (req.body.title.length > 40))) {
+        errorsMessages.push({message: '', field: "title"})
+    }
+    if (typeof (req.body.author) != 'string' || ((req.body.author.length < 1) || (req.body.author.length > 20))) {
+        errorsMessages.push({message: typeof req.body.author, field: "author"})
+    }
+    if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18 ) {
+        errorsMessages.push({message: typeof req.body.minAgeRestruction, field: "minAgeRestruction"})
+    }
+    if (errorsMessages.length) {
+        res.status(400).json({errorsMessages})
+    }
+
+
+
+//     if (typeof (req.body.title)!='string'|| ((req.body.title.length<1)||(req.body.title.length>40))){
+//         res.sendStatus(400)
+//     }
+//     if (typeof (req.body.author)!='string'|| ((req.body.author.length<1)||(req.body.author.length>20))){
+//         res.sendStatus(400)
+//     }
+//     if (!checkAvailableResolution(req.body.availableResolutions)){
+//         res.sendStatus(400)
+//     }
+//     if ((req.body.title==null)||(req.body.author==null)){
+//         res.sendStatus(400)
+//         return
+//     }
+//     //     "availableResolutions": Array [
+// //         "P144",
+// //             "P2160",
+// //             "P720",
+// //         ],
+// //         -   "canBeDownloaded": true,
+// //         +   "canBeDownloaded": false,
+// //         "createdAt": "2024-09-18T21:06:11.971Z",
+// //         "id": 1726693571971,
+// //         -   "minAgeRestriction": 16,
+// //         -   "publicationDate": "2024-09-24T21:06:12.024Z",
+// //         +   "minAgeRestriction": null,
+// //         +   "publicationDate": "2024-09-18T21:06:12.102Z",
+// //         "title": "some title updated",
+// // }
+
+
+
+
 
     const newVideo:BodyType = {
         id: ID,
