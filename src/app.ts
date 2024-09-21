@@ -72,10 +72,12 @@ app.post('/videos',(req, res) => {
     if (resValidationTitle){
      return    res.status(400).json(resValidationTitle)
     }
+
     const resValidationAuthor = validationAuthor(req.body.author)
     if (resValidationAuthor){
         return    res.status(400).json(resValidationAuthor)
     }
+
     const resValidationMinAgeRestruction = validationMinAgeRestruction(req.body.minAgeRestruction)
     if (resValidationMinAgeRestruction){
         return    res.status(400).json(resValidationMinAgeRestruction)
@@ -85,9 +87,6 @@ app.post('/videos',(req, res) => {
     if (resValidationMinAgeRestruction){
         return    res.status(400).json(resValidationAvailableResolutions)
     }
-
-
-
 
 
     //наворотил такое    //++++++++++++++++++++++++++++++++++++++++++
