@@ -1,4 +1,4 @@
-import express, {NextFunction} from 'express'
+import express, {NextFunction, response} from 'express'
 import cors from 'cors'
 import {checkAvailableResolution, db} from "./db/db";
 import {SETTINGS} from "./settings";
@@ -62,7 +62,7 @@ app.post('/videos',(req, res) => {
 
 
     if (validationTitle(req.body.title)!=null)
-        res.status(400).json()
+        res.status(400).json(validationTitle(req.body.title))
 
 
 
