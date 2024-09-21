@@ -65,7 +65,6 @@ app.post('/videos',(req, res) => {
         type ErrorType = { message?: string | null, field?: string | null };
         const errorsMessages: ErrorType[] = [];
 
-
         if (typeof (req.body.title) != 'string' || (req.body.title.length < 1) || (req.body.title.length > 40)||(req.body.title == null)) {
             errorsMessages.push({message: 'Any<String>', field: "title"})
         }
@@ -80,7 +79,7 @@ app.post('/videos',(req, res) => {
         }
 
         if ((errorsMessages.length)) {
-            res.status(400).json({errors: errorsMessages})
+            res.status(400).json({errorsMesages: errorsMessages})
         }
     // }
 
