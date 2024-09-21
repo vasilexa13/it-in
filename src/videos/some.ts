@@ -9,7 +9,7 @@ export type ParamType = {
 // export type BodyType =  {
 export interface BodyType  {
     readonly id: number
-    title: string
+    title: string|null
     author?: string
     canBeDownloaded?: boolean
     minAgeRestriction?: number|null

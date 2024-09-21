@@ -58,25 +58,18 @@ app.post('/videos',(req, res) => {
     const publicationDate = new Date();
     publicationDate.setDate(createdAt.getDate() + 1);
 
-
-
-    type ErrorType = { message: string, field: string }
+    //наворотил такое
+    type ErrorType = { message?: string|null, field?: string|null }
     const errorsMessages: ErrorType[] = []
-
-    console.log(req.body)
-    console.log(typeof req.body.title=='string'|| req.body.title.length<1);
-
-
-
 
     if (!checkAvailableResolution(req.body.availableResolutions)){
         errorsMessages.push({message: typeof req.body.availableResolutions, field: "availableResolutions"})
     }
     if (req.body.author == null) {
-        errorsMessages.push({message: typeof req.body.author, field: "author"})
+        errorsMessages.push({message: "Any<String>", field: "author"})
     }
     if ((req.body.title == null)) {
-        errorsMessages.push({message: typeof req.body.title, field: "title"})
+        errorsMessages.push({message: "Any<String>", field: "title"})
     }
     if (typeof (req.body.title) != 'string' || ((req.body.title.length < 1) || (req.body.title.length > 40))) {
         errorsMessages.push({message: '', field: "title"})
@@ -87,18 +80,44 @@ app.post('/videos',(req, res) => {
     if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18 ) {
         errorsMessages.push({message: typeof req.body.minAgeRestruction, field: "minAgeRestruction"})
     }
-    if (errorsMessages.length) {
+    if ((errorsMessages.length)) {
         res.status(400).json({errorsMessages})
     }
 
-    const newVideo:BodyType = {
+
+    //++++++++++++++++++++++++++++++++++++++++++
+    // let avaliableData = {
+    //     canBeDownloaded:undefined,
+    //     publicationDate:undefined,
+    //     availableResolutions:undefined,
+    //     minAgeRestriction:undefined
+    // }
+    //
+    // if (req.body.canBeDownloaded) {
+    //     avaliableData.canBeDownloaded =   req.body.canBeDownloaded
+    // }
+    // if (req.body.publicationDate) {
+    //     avaliableData.publicationDate =   req.body.publicationDate
+    // }
+    // if (req.body.availableResolutions) {
+    //     avaliableData.availableResolutions =   req.body.availableResolutions
+    // }
+    // if (req.body.minAgeRestriction){
+    //     avaliableData.minAgeRestriction=   req.body.minAgeRestriction
+    // }
+
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    const newVideo = {
         id: ID,
         title : req.body.title,
         author : req.body.author,
+        // if (req.body.canBeDownloaded){
+        //     canBeDownloaded:false
+        // }
+
         canBeDownloaded:false,
-
-        // canBeDownloaded:false, //меняю на true падает больше тестов
-
         minAgeRestriction:null,
         createdAt:createdAt.toISOString(),
         publicationDate: publicationDate.toISOString(),
@@ -136,8 +155,6 @@ app.put('/videos/:id',    (req, res) => {
     }
 
 
-
-
         if (req.body.author == null) {
             errorsMessages.push({message: typeof findVideo.author, field: "author"})
         }
@@ -145,7 +162,7 @@ app.put('/videos/:id',    (req, res) => {
             errorsMessages.push({message: typeof findVideo.title, field: "title"})
         }
         if (typeof (req.body.title) != 'string' || ((req.body.title.length < 1) || (req.body.title.length > 40))) {
-            errorsMessages.push({message: '', field: "title"})
+            errorsMessages.push({message: typeof findVideo.title, field: "title"})
         }
         if (typeof (req.body.author) != 'string' || ((req.body.author.length < 1) || (req.body.author.length > 20))) {
             errorsMessages.push({message: typeof findVideo.author, field: "author"})
@@ -160,12 +177,10 @@ app.put('/videos/:id',    (req, res) => {
             }
         }
 
+        console.error()
         if (errorsMessages.length) {
             res.status(400).json({errorsMessages})
         }
-
-
-
 
         if (findVideo) {
             findVideo.title = req.body.title
