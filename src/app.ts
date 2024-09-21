@@ -10,7 +10,7 @@ import {BodyType} from "./videos/some";
 import {body, query} from "express-validator";
 import {type} from "node:os";
 import {types} from "node:util";
-// import {validation} from "./videos/validation";
+import {validationTitle} from "./videos/validation";
 
 export const app = express() // создать приложение
 app.use(express.json()) // создание свойств-объектов body во всех реквестах
@@ -60,29 +60,10 @@ app.post('/videos',(req, res) => {
     publicationDate.setDate(createdAt.getDate() + 1);
 
 
-    // export function validation(req: express.Request, res: express.Response, next: express.NextFunction): void {
 
-        type ErrorType = { message?: string | null, field?: string | null };
-        const errorsMessages: ErrorType[] = [];
-
-        if (typeof (req.body.title) != 'string' || (req.body.title.length < 1) || (req.body.title.length > 40)||(req.body.title == null)) {
-            errorsMessages.push({message: 'Any<String>', field: "title"})
-        }
-        if (typeof (req.body.author) != 'string' || (req.body.author.length < 1) || (req.body.author.length > 20)||(req.body.author == null)) {
-            errorsMessages.push({message: 'Any<String>', field: "author"})
-        }
-        if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18 ) {
-            errorsMessages.push({message: typeof req.body.minAgeRestruction, field: "minAgeRestruction"})
-        }
-        if (!checkAvailableResolution(req.body.availableResolutions)){
-            errorsMessages.push({message: typeof req.body.availableResolutions, field: "availableResolutions"})
-        }
-
-        if ((errorsMessages.length)) {
-            res.status(400).json({errorsMesages: errorsMessages})
-        }
-    // }
-
+if (validationTitle(req.body.title)){
+    res.status(200).json()
+    }
 
 
 
