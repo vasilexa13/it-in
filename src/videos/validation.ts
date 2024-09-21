@@ -12,14 +12,28 @@ if (typeof (title) != 'string' || (title.length < 1) || (title.length > 40)||(ti
  return errorsMessages.length?errorsMessages[0]:null
 }
 
+// @ts-ignore
+export function validationAuthor(author): ErrorType | null {
+    type ErrorType = { message?: string | null, field?: string | null };
+    const errorsMessages: ErrorType[] = [];
+    if (typeof (author) != 'string' || (author.length < 1) || (author.length > 40)||(author == null)) {
+        errorsMessages.push({message: 'Any<String>', field: "author"})
+    }
+    return errorsMessages.length?errorsMessages[0]:null
+}
 
-//
-// if (typeof (req.body.author) != 'string' || (req.body.author.length < 1) || (req.body.author.length > 20)||(req.body.author == null)) {
-//     errorsMessages.push({message: 'Any<String>', field: "author"})
-// }
-// if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18 ) {
-//     errorsMessages.push({message: typeof req.body.minAgeRestruction, field: "minAgeRestruction"})
-// }
+
+// @ts-ignore
+export function validationMinAgeRestruction(minAgeRestruction): ErrorType | null {
+    type ErrorType = { message?: string | null, field?: string | null };
+    const errorsMessages: ErrorType[] = [];
+    if ((minAgeRestruction) < 1 || (minAgeRestruction) > 18 ){
+        errorsMessages.push({message: 'Any<String>', field: "minAgeRestruction"})
+    }
+    return errorsMessages.length?errorsMessages[0]:null
+}
+
+
 // if (!checkAvailableResolution(req.body.availableResolutions)){
 //     errorsMessages.push({message: typeof req.body.availableResolutions, field: "availableResolutions"})
 // }
