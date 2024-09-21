@@ -10,7 +10,12 @@ import {BodyType} from "./videos/some";
 import {body, query} from "express-validator";
 import {type} from "node:os";
 import {types} from "node:util";
-import {validationAuthor, validationTitle} from "./videos/validation";
+import {
+    validationAuthor,
+    validationAvailableResolutions,
+    validationMinAgeRestruction,
+    validationTitle
+} from "./videos/validation";
 
 export const app = express() // создать приложение
 app.use(express.json()) // создание свойств-объектов body во всех реквестах
@@ -62,14 +67,23 @@ app.post('/videos',(req, res) => {
     publicationDate.setDate(createdAt.getDate() + 1);
 
 
+
     const resValidationTitle = validationTitle(req.body.title)
     if (resValidationTitle){
      return    res.status(400).json(resValidationTitle)
     }
-
     const resValidationAuthor = validationAuthor(req.body.author)
     if (resValidationAuthor){
         return    res.status(400).json(resValidationAuthor)
+    }
+    const resValidationMinAgeRestruction = validationMinAgeRestruction(req.body.minAgeRestruction)
+    if (resValidationMinAgeRestruction){
+        return    res.status(400).json(resValidationMinAgeRestruction)
+    }
+
+    const resValidationAvailableResolutions = validationAvailableResolutions(req.body.availableResolutions)
+    if (resValidationMinAgeRestruction){
+        return    res.status(400).json(resValidationAvailableResolutions)
     }
 
 

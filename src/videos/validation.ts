@@ -33,6 +33,15 @@ export function validationMinAgeRestruction(minAgeRestruction): ErrorType | null
     return errorsMessages.length?errorsMessages[0]:null
 }
 
+// @ts-ignore
+export function validationAvailableResolutions(availableResolutions): ErrorType | null {
+    type ErrorType = { message?: string | null, field?: string | null };
+    const errorsMessages: ErrorType[] = [];
+    if (!checkAvailableResolution(availableResolutions)){
+        errorsMessages.push({message: 'Any<String>', field: "availableResolutions"})
+    }
+    return errorsMessages.length?errorsMessages[0]:null
+}
 
 // if (!checkAvailableResolution(req.body.availableResolutions)){
 //     errorsMessages.push({message: typeof req.body.availableResolutions, field: "availableResolutions"})
