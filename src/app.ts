@@ -140,7 +140,7 @@ app.put('/videos/:id',    (req, res) => {
         let findVideo = db.videos.find((video) => video.id === ID)
 
         type ErrorType = { message: string, field: string }
-        const errorsMessages: ErrorType[] = []
+        const errors: ErrorType[] = []
 
 
     let avaliableData = {
@@ -165,29 +165,28 @@ app.put('/videos/:id',    (req, res) => {
 
 
         if (req.body.author == null) {
-            errorsMessages.push({message: "Any<String>", field: "author"})
+            errors.push({message: "Any<String>", field: "author"})
         }
         if ((req.body.title == null)) {
-            errorsMessages.push({message: "Any<String>", field: "title"})
+            errors.push({message: "Any<String>", field: "title"})
         }
         if (typeof (req.body.title) != 'string' || ((req.body.title.length < 1) || (req.body.title.length > 40))) {
-            errorsMessages.push({message: "Any<String>", field: "title"})
+            errors.push({message: "Any<String>", field: "title"})
         }
         if (typeof (req.body.author) != 'string' || ((req.body.author.length < 1) || (req.body.author.length > 20))) {
-            errorsMessages.push({message: "Any<String>", field: "author"})
+            errors.push({message: "Any<String>", field: "author"})
         }
-        // if (!checkAvailableResolution(req.body.availableResolutions)){
-        //     res.sendStatus(400)
-        // }
+
 
         if (req.body.minAgeRestriction){
             if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18 ) {
-                errorsMessages.push({message: typeof findVideo.minAgeRestruction, field: "minAgeRestruction"})
+                errors.push({message: typeof findVideo.minAgeRestruction, field: "minAgeRestruction"})
             }
         }
 
-        console.error()
-        if (errorsMessages.length) {
+        console.log(errors)
+        if (errors.length) {
+            const errorsMessages =  new Set (errors)
             res.status(400).json({errorsMessages})
         }
 
