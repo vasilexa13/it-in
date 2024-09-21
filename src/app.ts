@@ -66,71 +66,33 @@ app.post('/videos',(req, res) => {
     const publicationDate = new Date();
     publicationDate.setDate(createdAt.getDate() + 1);
 
-    type ErrorType = { message: string, field: string }
-    const errors: ErrorType[] = []
 
-// //---------------------------------------------------
-//     // let errorsMessages = []
-//     const resValidationTitle = validationTitle(req.body.title)
-//     if (resValidationTitle){
-//         // errorsMessages.push(resValidationTitle)
-//      return    res.status(400).json(resValidationTitle)
-//     }
-//
-//     const resValidationAuthor = validationAuthor(req.body.author)
-//     if (resValidationAuthor){
-//         // errorsMessages.push(resValidationAuthor)
-//         return    res.status(400).json(resValidationAuthor)
-//     }
-//
-//     const resValidationMinAgeRestruction = validationMinAgeRestruction(req.body.minAgeRestruction)
-//     if (resValidationMinAgeRestruction){
-//         // errorsMessages.push(resValidationMinAgeRestruction)
-//         return    res.status(400).json(resValidationMinAgeRestruction)
-//     }
-//
-//     const resValidationAvailableResolutions = validationAvailableResolutions(req.body.availableResolutions)
-//     if (resValidationMinAgeRestruction){
-//         // errorsMessages.push(resValidationAvailableResolutions)
-//         return    res.status(400).json(resValidationAvailableResolutions)
-//     }
-// //----------------------------------------------------------------------------------
-
-
-
-    if (req.body.author == null) {
-        errors.push({message: "Any<String>", field: "author"})
-    }
-    if ((req.body.title == null)) {
-        errors.push({message: "Any<String>", field: "title"})
-    }
-    if (typeof (req.body.title) != 'string' || ((req.body.title.length < 1) || (req.body.title.length > 40))) {
-        errors.push({message: "Any<String>", field: "title"})
-    }
-    if (typeof (req.body.author) != 'string' || ((req.body.author.length < 1) || (req.body.author.length > 20))) {
-        errors.push({message: "Any<String>", field: "author"})
-    }
-    if (req.body.minAgeRestriction){
-        if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18 ) {
-            errors.push({message: "Any<String>", field: "minAgeRestruction"})
-        }
+//---------------------------------------------------
+    // let errorsMessages = []
+    const resValidationTitle = validationTitle(req.body.title)
+    if (resValidationTitle){
+        // errorsMessages.push(resValidationTitle)
+     return    res.status(400).json(resValidationTitle)
     }
 
-    if (errors.length) {
-        const errorsMessages = [];
-        const seenFields = new Set();
-
-        for (const error of errors) {
-            if (!seenFields.has(error.field)) {
-                seenFields.add(error.field);
-                errorsMessages.push(error);
-            }
-        }
-        console.log(errorsMessages);
-        res.status(400).json({errorsMessages})
+    const resValidationAuthor = validationAuthor(req.body.author)
+    if (resValidationAuthor){
+        // errorsMessages.push(resValidationAuthor)
+        return    res.status(400).json(resValidationAuthor)
     }
 
+    const resValidationMinAgeRestruction = validationMinAgeRestruction(req.body.minAgeRestruction)
+    if (resValidationMinAgeRestruction){
+        // errorsMessages.push(resValidationMinAgeRestruction)
+        return    res.status(400).json(resValidationMinAgeRestruction)
+    }
 
+    const resValidationAvailableResolutions = validationAvailableResolutions(req.body.availableResolutions)
+    if (resValidationMinAgeRestruction){
+        // errorsMessages.push(resValidationAvailableResolutions)
+        return    res.status(400).json(resValidationAvailableResolutions)
+    }
+//----------------------------------------------------------------------------------
 
 
     //наворотил такое    //++++++++++++++++++++++++++++++++++++++++++
