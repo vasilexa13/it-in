@@ -176,19 +176,36 @@ app.put('/videos/:id',    (req, res) => {
         if (typeof (req.body.author) != 'string' || ((req.body.author.length < 1) || (req.body.author.length > 20))) {
             errors.push({message: "Any<String>", field: "author"})
         }
-
-
         if (req.body.minAgeRestriction){
             if ((req.body.minAgeRestruction) < 1 || (req.body.minAgeRestruction) > 18 ) {
                 errors.push({message: typeof findVideo.minAgeRestruction, field: "minAgeRestruction"})
             }
         }
 
-        // console.log(errorsMessages)
-        if (errors.length) {
-            const errorsMessages = Array.from(new Set(Object.values(errors)));
-            res.status(400).json({errorsMessages})
+
+
+
+    if (errors.length) {
+    const errorsMessages = [];
+    const seen = new Set();
+
+    for (const error of errors) {
+        const identifier = `${error.message}|${error.field}`; // создаем уникальный идентификатор
+        if (!seen.has(identifier)) {
+            seen.add(identifier);
+            errorsMessages.push(error);
         }
+    }
+        res.status(400).json({errorsMessages})
+    }
+
+    // console.log(uniqueErrors);
+    //
+    //
+    //         const errorsMessages = Array.from(new Set(Object.values(errors)));
+    //         console.log(errorsMessages)
+
+
 
         if (findVideo) {
             findVideo.title = req.body.title
