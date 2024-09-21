@@ -61,9 +61,10 @@ app.post('/videos',(req, res) => {
 
 
 
-if (validationTitle(req.body.title)){
-    res.status(200).json()
-    }
+    if (validationTitle(req.body.title)!=null)
+        res.status(200).json()
+
+
 
 
 
