@@ -182,20 +182,18 @@ app.put('/videos/:id',    (req, res) => {
             }
         }
 
-
-
-
     if (errors.length) {
-    const errorsMessages = [];
-    const seen = new Set();
+        const errorsMessages = [];
+        const seenFields = new Set();
 
-    for (const error of errors) {
-        const identifier = `${error.message}|${error.field}`; // создаем уникальный идентификатор
-        if (!seen.has(identifier)) {
-            seen.add(identifier);
-            errorsMessages.push(error);
+        for (const error of errors) {
+            if (!seenFields.has(error.field)) {
+                seenFields.add(error.field);
+                errorsMessages.push(error);
+            }
         }
-    }
+
+        console.log(errorsMessages);
         res.status(400).json({errorsMessages})
     }
 
