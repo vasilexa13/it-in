@@ -165,16 +165,16 @@ app.put('/videos/:id',    (req, res) => {
 
 
         if (req.body.author == null) {
-            errorsMessages.push({message: typeof findVideo.author, field: "author"})
+            errorsMessages.push({message: "Any<String>", field: "author"})
         }
         if ((req.body.title == null)) {
-            errorsMessages.push({message: typeof findVideo.title, field: "title"})
+            errorsMessages.push({message: "Any<String>", field: "title"})
         }
         if (typeof (req.body.title) != 'string' || ((req.body.title.length < 1) || (req.body.title.length > 40))) {
-            errorsMessages.push({message: typeof findVideo.title, field: "title"})
+            errorsMessages.push({message: "Any<String>", field: "title"})
         }
         if (typeof (req.body.author) != 'string' || ((req.body.author.length < 1) || (req.body.author.length > 20))) {
-            errorsMessages.push({message: typeof findVideo.author, field: "author"})
+            errorsMessages.push({message: "Any<String>", field: "author"})
         }
         // if (!checkAvailableResolution(req.body.availableResolutions)){
         //     res.sendStatus(400)
