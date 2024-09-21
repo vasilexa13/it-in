@@ -9,7 +9,7 @@ const errorsMessages: ErrorType[] = [];
 if (typeof (title) != 'string' || (title.length < 1) || (title.length > 40)||(title == null)) {
     errorsMessages.push({message: 'Any<String>', field: "title"})
 }
- return errorsMessages.length?errorsMessages[0]:null
+ return errorsMessages.length?errorsMessages:null
 }
 
 
