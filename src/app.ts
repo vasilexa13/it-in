@@ -184,9 +184,9 @@ app.put('/videos/:id',    (req, res) => {
             }
         }
 
-        console.log(errors)
+        // console.log(errorsMessages)
         if (errors.length) {
-            const errorsMessages =  new Set (errors)
+            const errorsMessages = Array.from(new Set(Object.values(errors)));
             res.status(400).json({errorsMessages})
         }
 
