@@ -68,33 +68,33 @@ app.post('/videos',(req, res) => {
 
 
 
-    let errorsMessages = []
+    let errorsMessages = {}
 
     const resValidationTitle = validationTitle(req.body.title)
     if (resValidationTitle){
-        errorsMessages.push(resValidationTitle)
+        errorsMessages=(resValidationTitle)
      // return    res.status(400).json(resValidationTitle)
     }
 
     const resValidationAuthor = validationAuthor(req.body.author)
     if (resValidationAuthor){
-        errorsMessages.push(resValidationAuthor)
+        errorsMessages=(resValidationAuthor)
         // return    res.status(400).json(resValidationAuthor)
     }
 
     const resValidationMinAgeRestruction = validationMinAgeRestruction(req.body.minAgeRestruction)
     if (resValidationMinAgeRestruction){
-        errorsMessages.push(resValidationMinAgeRestruction)
+        errorsMessages=(resValidationMinAgeRestruction)
         // return    res.status(400).json(resValidationMinAgeRestruction)
     }
 
     const resValidationAvailableResolutions = validationAvailableResolutions(req.body.availableResolutions)
     if (resValidationMinAgeRestruction){
-        errorsMessages.push(resValidationAvailableResolutions)
+        errorsMessages=(resValidationAvailableResolutions)
         // return    res.status(400).json(resValidationAvailableResolutions)
     }
 
-    if (errorsMessages.length){
+    if (errorsMessages){
         res.status(400).json({errorsMessages})
     }
 
